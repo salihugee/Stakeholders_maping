@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stakeholders Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Leaflet CSS locally -->
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <!-- Include Leaflet JavaScript locally -->
+    <script src="leaflet/leaflet.js"></script>
+    <input id="search-input" type="text" placeholder="Search for a company">
+    <button id="search-button">Search</button>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        // Add a tile layer
+        L.tileLayer('leaflet/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        // Add a marker
+        var marker = L.marker([51.5, -0.09]).addTo(map)
+            .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+
+        // Add a circle
+        var circle = L.circle([51.508, -0.11], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+        }).addTo(map).bindPopup('I am a circle.');
+
+        // Add a polygon
+        var polygon = L.polygon([
+            [51.509, -0.08],
+            [51.503, -0.06],
+            [51.51, -0.047]
+        ]).addTo(map).bindPopup('I am a polygon.');
+
+        // Add a search functionality
+        var searchInput = document.createElement('input');
+        searchInput.id = 'search-input';
+        searchInput.type = 'text';
+        searchInput.placeholder = 'Search for a company';
+        document.body.appendChild(searchInput);
+
+        var searchButton = document.createElement('button');
+        searchButton.id = 'search-button';
+        searchButton.innerText = 'Search';
+        document.body.appendChild(searchButton);
+
+        searchButton.addEventListener('click', function() {
+            var companyName = searchInput.value;
+            console.log('Searching for company:', companyName); // Debugging log
+
+            // Assuming you have a function to get the company's coordinates
+            var companyCoordinates = getCompanyCoordinates(companyName);
+            if (companyCoordinates) {
+                console.log('Company coordinates:', companyCoordinates); // Debugging log
+                map.setView(companyCoordinates, 15); // Zoom to the company's location
+            } else {
+                console.log('Company not found'); // Debugging log
+            }
+        });
+
+        function getCompanyCoordinates(companyName) {
+            // Implement this function to return the coordinates of the company
+            // Example:
+            var companies = {
+                'Company A': [51.505, -0.09],
+                'Company B': [51.515, -0.1],
+                // Add more companies and their coordinates here
+            };
+            return companies[companyName];
+        }
+    </script>
+</body>
+</html>

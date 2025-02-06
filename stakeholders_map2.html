@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f6bf1560616846b5de623c4dc18abca3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+</head>
+<body>
+    
+    
+<script>
+function zoomToLocation() {
+    var companyLocations = {'Palm Valley': [10.45373522, 7.487891652], 'Namalco Nigerian Ltd': [11.12842219, 7.722568084], 'Miringa Fertilizers and Chemicals Ltd': [11.08840636, 7.763713126], 'Matrix Fertilizer': [10.9545495, 7.647366616], 'Premier Seeds Limited': [11.12822383, 7.723626721], 'Hulhulde Rice Mill Ltd': [11.12641676, 7.721669195], 'Tukunyar  Gwari': [11.08939869, 7.705638877], 'Value seeds Limited': [11.22046477, 7.778940127], 'Nagari seeds ': [11.15288219, 7.715271236], 'Alhaji Salisu Nuhu and Sons': [11.12311844, 7.714104941], 'Olam': [10.22984872, 7.347274609], 'Hybrid Feeds': [10.33685891, 7.392040899], 'Tomato Jos': [10.71846631, 7.568827263]};  // Load Python dictionary into JS
+    var selectedCompany = document.getElementById('companyDropdown').value;
+    if (selectedCompany in companyLocations) {
+        var coords = companyLocations[selectedCompany];
+        map.setView(coords, 12);  // Zoom to location
+    }
+}
+</script>
+    
+<div style="position: fixed; top: 10px; left: 10px; z-index: 1000; background: white; padding: 10px; border-radius: 5px; box-shadow: 2px 2px 5px grey;">
+    <label for="companyDropdown"><b>Search Company:</b></label>
+    <select id="companyDropdown" onchange="zoomToLocation()">
+        <option value="">-- Select Company --</option>
+<option value="Palm Valley">Palm Valley</option><option value="Namalco Nigerian Ltd">Namalco Nigerian Ltd</option><option value="Miringa Fertilizers and Chemicals Ltd">Miringa Fertilizers and Chemicals Ltd</option><option value="Matrix Fertilizer">Matrix Fertilizer</option><option value="Premier Seeds Limited">Premier Seeds Limited</option><option value="Hulhulde Rice Mill Ltd">Hulhulde Rice Mill Ltd</option><option value="Tukunyar  Gwari">Tukunyar  Gwari</option><option value="Value seeds Limited">Value seeds Limited</option><option value="Nagari seeds ">Nagari seeds </option><option value="Alhaji Salisu Nuhu and Sons">Alhaji Salisu Nuhu and Sons</option><option value="Olam">Olam</option><option value="Hybrid Feeds">Hybrid Feeds</option><option value="Tomato Jos">Tomato Jos</option>
+    </select>
+</div>
+    
+            <div class="folium-map" id="map_f6bf1560616846b5de623c4dc18abca3" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f6bf1560616846b5de623c4dc18abca3 = L.map(
+                "map_f6bf1560616846b5de623c4dc18abca3",
+                {
+                    center: [10.5, 7.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8937d2e926082e97246a514025ff79cd = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_8937d2e926082e97246a514025ff79cd.addTo(map_f6bf1560616846b5de623c4dc18abca3);
+        
+    
+            var feature_group_e909e6bd0d3521a53c1741bdc1fa84fe = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_b66ed5f53b4e5e1a7427bfba1a732fbd = L.marker(
+                [10.45373522, 7.487891652],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_353194725f240038b2e614405d4719bf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b66ed5f53b4e5e1a7427bfba1a732fbd.setIcon(icon_353194725f240038b2e614405d4719bf);
+        
+    
+        var popup_7e88feba79d18bc14bc78755fabf40d0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fe032c090446e8190d7f62267dcd2d13 = $(`<div id="html_fe032c090446e8190d7f62267dcd2d13" style="width: 100.0%; height: 100.0%;">         <b>Palm Valley</b><br>         <b>Category:</b> Contract Farming<br>         <b>Commodity:</b> Maize, Rice & Ginger<br>         <b>Address:</b> Suit 1 & 10, 220 legacy plaza, Ibrahim Yakowa way, kamazou, Kaduna<br>         <b>Contact:</b> Ezekiel Jatau (CEO/MD)<br>         <b>Phone:</b> 08037864289<br>         <b>Email:</b> palmvalley@gmail.com<br>         </div>`)[0];
+                popup_7e88feba79d18bc14bc78755fabf40d0.setContent(html_fe032c090446e8190d7f62267dcd2d13);
+            
+        
+
+        marker_b66ed5f53b4e5e1a7427bfba1a732fbd.bindPopup(popup_7e88feba79d18bc14bc78755fabf40d0)
+        ;
+
+        
+    
+    
+            marker_b66ed5f53b4e5e1a7427bfba1a732fbd.bindTooltip(
+                `<div>
+                     Palm Valley
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f1c309b7c033984fa46b81aa725b7ca2 = L.marker(
+                [11.12842219, 7.722568084],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_ecf2cbb575c7ee7d6536e3334ff4467c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_f1c309b7c033984fa46b81aa725b7ca2.setIcon(icon_ecf2cbb575c7ee7d6536e3334ff4467c);
+        
+    
+        var popup_5907b0aa765c9ed198138719fb82707d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d29f4862397f67369021d4a1bc53fd79 = $(`<div id="html_d29f4862397f67369021d4a1bc53fd79" style="width: 100.0%; height: 100.0%;">         <b>Namalco Nigerian Ltd</b><br>         <b>Category:</b> Contract Farming<br>         <b>Commodity:</b> Maize & Cowpea <br>         <b>Address:</b> No 25 Yero Street. Chikaji Industrial Estate Zarai<br>         <b>Contact:</b> Lawrence Ogolowa (General Manager )<br>         <b>Phone:</b> 08060282125<br>         <b>Email:</b> nal-maco@yahoo.co<br>         </div>`)[0];
+                popup_5907b0aa765c9ed198138719fb82707d.setContent(html_d29f4862397f67369021d4a1bc53fd79);
+            
+        
+
+        marker_f1c309b7c033984fa46b81aa725b7ca2.bindPopup(popup_5907b0aa765c9ed198138719fb82707d)
+        ;
+
+        
+    
+    
+            marker_f1c309b7c033984fa46b81aa725b7ca2.bindTooltip(
+                `<div>
+                     Namalco Nigerian Ltd
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_6e5b7f22eb7f36b260ac968373879d49 = L.marker(
+                [11.08840636, 7.763713126],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_fed2de66df4dbb3232ddd108abd70909 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6e5b7f22eb7f36b260ac968373879d49.setIcon(icon_fed2de66df4dbb3232ddd108abd70909);
+        
+    
+        var popup_249ed1a0cf14b31675abc10d29663fc1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4e1e430c584d1478ef7462318bf9da12 = $(`<div id="html_4e1e430c584d1478ef7462318bf9da12" style="width: 100.0%; height: 100.0%;">         <b>Miringa Fertilizers and Chemicals Ltd</b><br>         <b>Category:</b> Fertilizer Company<br>         <b>Commodity:</b> Fertilizer<br>         <b>Address:</b> No 20, Dam Road, Mangu Village, Dakache Zaria<br>         <b>Contact:</b> Haruna Magaji (MD)<br>         <b>Phone:</b> 08064383747<br>         <b>Email:</b> miringagroup@gmail.com<br>         </div>`)[0];
+                popup_249ed1a0cf14b31675abc10d29663fc1.setContent(html_4e1e430c584d1478ef7462318bf9da12);
+            
+        
+
+        marker_6e5b7f22eb7f36b260ac968373879d49.bindPopup(popup_249ed1a0cf14b31675abc10d29663fc1)
+        ;
+
+        
+    
+    
+            marker_6e5b7f22eb7f36b260ac968373879d49.bindTooltip(
+                `<div>
+                     Miringa Fertilizers and Chemicals Ltd
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1bb9e3a7ece1ef4e4f8850578470bb51 = L.marker(
+                [10.9545495, 7.647366616],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_eeebad56bb8131ed8ecc08895518e90d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_1bb9e3a7ece1ef4e4f8850578470bb51.setIcon(icon_eeebad56bb8131ed8ecc08895518e90d);
+        
+    
+        var popup_32b344281475dca18340ca24bd817622 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5d4cc855b35f6112b84ed2635757082 = $(`<div id="html_d5d4cc855b35f6112b84ed2635757082" style="width: 100.0%; height: 100.0%;">         <b>Matrix Fertilizer</b><br>         <b>Category:</b> Fertilizer Company<br>         <b>Commodity:</b> Fertilizer<br>         <b>Address:</b> Dumbin Dutse, Kaduna- Zaria Road<br>         <b>Contact:</b> Olajide Aogo (General Manager )<br>         <b>Phone:</b> 08125825826<br>         <b>Email:</b> aogo@matrixenergygroup.com<br>         </div>`)[0];
+                popup_32b344281475dca18340ca24bd817622.setContent(html_d5d4cc855b35f6112b84ed2635757082);
+            
+        
+
+        marker_1bb9e3a7ece1ef4e4f8850578470bb51.bindPopup(popup_32b344281475dca18340ca24bd817622)
+        ;
+
+        
+    
+    
+            marker_1bb9e3a7ece1ef4e4f8850578470bb51.bindTooltip(
+                `<div>
+                     Matrix Fertilizer
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8a9f56954119ec744edb7a3f313a7015 = L.marker(
+                [11.12822383, 7.723626721],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_f2da68c37e90f431490d0528e6a13863 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8a9f56954119ec744edb7a3f313a7015.setIcon(icon_f2da68c37e90f431490d0528e6a13863);
+        
+    
+        var popup_bf1cc0610dca32a01af49bc10792b1c5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b309064e4058694114c73fffd39e63bf = $(`<div id="html_b309064e4058694114c73fffd39e63bf" style="width: 100.0%; height: 100.0%;">         <b>Premier Seeds Limited</b><br>         <b>Category:</b> Seeds Company<br>         <b>Commodity:</b> Seeds<br>         <b>Address:</b> Chikaji Industrial Estate, Zaria<br>         <b>Contact:</b> Edun Ibrahim (Marketing Officer)<br>         <b>Phone:</b> \`08028434672<br>         <b>Email:</b> ibroedun@yahoo.com<br>         </div>`)[0];
+                popup_bf1cc0610dca32a01af49bc10792b1c5.setContent(html_b309064e4058694114c73fffd39e63bf);
+            
+        
+
+        marker_8a9f56954119ec744edb7a3f313a7015.bindPopup(popup_bf1cc0610dca32a01af49bc10792b1c5)
+        ;
+
+        
+    
+    
+            marker_8a9f56954119ec744edb7a3f313a7015.bindTooltip(
+                `<div>
+                     Premier Seeds Limited
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_dea7109cc61908e6679024e35b44ac9a = L.marker(
+                [11.12641676, 7.721669195],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_c5d94706b3345137e96c885eb9634e81 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_dea7109cc61908e6679024e35b44ac9a.setIcon(icon_c5d94706b3345137e96c885eb9634e81);
+        
+    
+        var popup_a4e164f2ab451626a6cd6eaca92fffaf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a409236f4cc7d7e84fbc7e11432ca656 = $(`<div id="html_a409236f4cc7d7e84fbc7e11432ca656" style="width: 100.0%; height: 100.0%;">         <b>Hulhulde Rice Mill Ltd</b><br>         <b>Category:</b> Processors<br>         <b>Commodity:</b> Rice<br>         <b>Address:</b> Chikaji Industrial Layout, Sabon gari, Zaria<br>         <b>Contact:</b> nan (HR)<br>         <b>Phone:</b> nan<br>         <b>Email:</b> nan<br>         </div>`)[0];
+                popup_a4e164f2ab451626a6cd6eaca92fffaf.setContent(html_a409236f4cc7d7e84fbc7e11432ca656);
+            
+        
+
+        marker_dea7109cc61908e6679024e35b44ac9a.bindPopup(popup_a4e164f2ab451626a6cd6eaca92fffaf)
+        ;
+
+        
+    
+    
+            marker_dea7109cc61908e6679024e35b44ac9a.bindTooltip(
+                `<div>
+                     Hulhulde Rice Mill Ltd
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0411da19dad5aa4ae3ab3a0eac043286 = L.marker(
+                [11.08939869, 7.705638877],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_a8e94771dcfaf7828ec60e10016fdf9e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_0411da19dad5aa4ae3ab3a0eac043286.setIcon(icon_a8e94771dcfaf7828ec60e10016fdf9e);
+        
+    
+        var popup_85d812531cf39cd32b754b6d745c6852 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0165a3bda321c7891d14ce4eaeca4fd7 = $(`<div id="html_0165a3bda321c7891d14ce4eaeca4fd7" style="width: 100.0%; height: 100.0%;">         <b>Tukunyar  Gwari</b><br>         <b>Category:</b> Contract Farming<br>         <b>Commodity:</b> Maize<br>         <b>Address:</b> No 16 Gaskiya danmaji road opposite nuhu bamali polytechnic annex campus Zaria <br>         <b>Contact:</b> Jamilu Kamarudeen (Desk Officer)<br>         <b>Phone:</b> 08034974129<br>         <b>Email:</b> kaigamanuhu@gmail.com<br>         </div>`)[0];
+                popup_85d812531cf39cd32b754b6d745c6852.setContent(html_0165a3bda321c7891d14ce4eaeca4fd7);
+            
+        
+
+        marker_0411da19dad5aa4ae3ab3a0eac043286.bindPopup(popup_85d812531cf39cd32b754b6d745c6852)
+        ;
+
+        
+    
+    
+            marker_0411da19dad5aa4ae3ab3a0eac043286.bindTooltip(
+                `<div>
+                     Tukunyar  Gwari
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ffe36f9abef135572613470ddda6bd1b = L.marker(
+                [11.22046477, 7.778940127],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_fa079f7df21d97b6296830defa46dd41 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ffe36f9abef135572613470ddda6bd1b.setIcon(icon_fa079f7df21d97b6296830defa46dd41);
+        
+    
+        var popup_dd567f4acdcbfb89f4efccc046cb8570 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4d68af1236042036cadab60b90b6a120 = $(`<div id="html_4d68af1236042036cadab60b90b6a120" style="width: 100.0%; height: 100.0%;">         <b>Value seeds Limited</b><br>         <b>Category:</b> Seeds Company<br>         <b>Commodity:</b> nan<br>         <b>Address:</b>  Value Village, Kilometer7, Zaria-Kano Road<br>         <b>Contact:</b> Peter Onoja (Head of Manomar  Integrated Links)<br>         <b>Phone:</b> \`08067991249<br>         <b>Email:</b> p.onoja@valueseedsltd.com<br>         </div>`)[0];
+                popup_dd567f4acdcbfb89f4efccc046cb8570.setContent(html_4d68af1236042036cadab60b90b6a120);
+            
+        
+
+        marker_ffe36f9abef135572613470ddda6bd1b.bindPopup(popup_dd567f4acdcbfb89f4efccc046cb8570)
+        ;
+
+        
+    
+    
+            marker_ffe36f9abef135572613470ddda6bd1b.bindTooltip(
+                `<div>
+                     Value seeds Limited
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0c26255726292ab0f01697698d5ae9e9 = L.marker(
+                [11.15288219, 7.715271236],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_8957277565261875678a2194438ecf33 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_0c26255726292ab0f01697698d5ae9e9.setIcon(icon_8957277565261875678a2194438ecf33);
+        
+    
+        var popup_b2116c7f6f83fb9adb2d003b31d50f82 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_791db70be6ba78ebd51bcc7afd629662 = $(`<div id="html_791db70be6ba78ebd51bcc7afd629662" style="width: 100.0%; height: 100.0%;">         <b>Nagari seeds </b><br>         <b>Category:</b> Seeds Company<br>         <b>Commodity:</b> nan<br>         <b>Address:</b> Dogarawa Sakadadi Road by Depot NA Firing Range Tohu Zaria, Kaduna State<br>         <b>Contact:</b> Tachio Boman (Maketing Manager)<br>         <b>Phone:</b> \`07060465133<br>         <b>Email:</b> nagariseedltd3@gmail.com<br>         </div>`)[0];
+                popup_b2116c7f6f83fb9adb2d003b31d50f82.setContent(html_791db70be6ba78ebd51bcc7afd629662);
+            
+        
+
+        marker_0c26255726292ab0f01697698d5ae9e9.bindPopup(popup_b2116c7f6f83fb9adb2d003b31d50f82)
+        ;
+
+        
+    
+    
+            marker_0c26255726292ab0f01697698d5ae9e9.bindTooltip(
+                `<div>
+                     Nagari seeds 
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b1694a02aadf8a0dc50856a1f1ae0835 = L.marker(
+                [11.12311844, 7.714104941],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_dc88f55c6c350e7066d29a238c094254 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b1694a02aadf8a0dc50856a1f1ae0835.setIcon(icon_dc88f55c6c350e7066d29a238c094254);
+        
+    
+        var popup_aafa0c5e86f814c4e2680117381cef70 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f4414afb8b13a1f36286cc7fe25f95c2 = $(`<div id="html_f4414afb8b13a1f36286cc7fe25f95c2" style="width: 100.0%; height: 100.0%;">         <b>Alhaji Salisu Nuhu and Sons</b><br>         <b>Category:</b> Contract Farming<br>         <b>Commodity:</b> nan<br>         <b>Address:</b> No 13B Sokoto Road MTD Sabon Gari Zaria<br>         <b>Contact:</b> Alh. Salisu Nuhu (MD)<br>         <b>Phone:</b> 08034536125<br>         <b>Email:</b> salisunuhu@gmail.com<br>         </div>`)[0];
+                popup_aafa0c5e86f814c4e2680117381cef70.setContent(html_f4414afb8b13a1f36286cc7fe25f95c2);
+            
+        
+
+        marker_b1694a02aadf8a0dc50856a1f1ae0835.bindPopup(popup_aafa0c5e86f814c4e2680117381cef70)
+        ;
+
+        
+    
+    
+            marker_b1694a02aadf8a0dc50856a1f1ae0835.bindTooltip(
+                `<div>
+                     Alhaji Salisu Nuhu and Sons
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cd60797a62aec1aa2c5d6bee3585778e = L.marker(
+                [10.22984872, 7.347274609],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_beaf5d59100b29bd5914f6a468ebf72f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_cd60797a62aec1aa2c5d6bee3585778e.setIcon(icon_beaf5d59100b29bd5914f6a468ebf72f);
+        
+    
+        var popup_3664b6eba1c06e9d66d0e6e64284c8d0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cdcd23031ac79fbc4363103940161d15 = $(`<div id="html_cdcd23031ac79fbc4363103940161d15" style="width: 100.0%; height: 100.0%;">         <b>Olam</b><br>         <b>Category:</b> Aggregator<br>         <b>Commodity:</b> Maize, soybean & Rice<br>         <b>Address:</b> Dutse village KM 25, Kaduna -Abuja Express way Chikum LGA <br>         <b>Contact:</b> Joshua (Senoir Procurement Officer)<br>         <b>Phone:</b> 07036033112<br>         <b>Email:</b> joshu.egbeh@olamagric.com<br>         </div>`)[0];
+                popup_3664b6eba1c06e9d66d0e6e64284c8d0.setContent(html_cdcd23031ac79fbc4363103940161d15);
+            
+        
+
+        marker_cd60797a62aec1aa2c5d6bee3585778e.bindPopup(popup_3664b6eba1c06e9d66d0e6e64284c8d0)
+        ;
+
+        
+    
+    
+            marker_cd60797a62aec1aa2c5d6bee3585778e.bindTooltip(
+                `<div>
+                     Olam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_5ed94e64216aa7bad5bc216d82301184 = L.marker(
+                [10.33685891, 7.392040899],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_01a573f1c22857553ba37140281e8b30 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_5ed94e64216aa7bad5bc216d82301184.setIcon(icon_01a573f1c22857553ba37140281e8b30);
+        
+    
+        var popup_b6881bb88529d358928aa7455b477459 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c318bead0bdd94959aeabb32ee968cd2 = $(`<div id="html_c318bead0bdd94959aeabb32ee968cd2" style="width: 100.0%; height: 100.0%;">         <b>Hybrid Feeds</b><br>         <b>Category:</b> Aggregator<br>         <b>Commodity:</b> Maize & Soybean <br>         <b>Address:</b> Kaduna-Abuja Express Way Opposite Obasonjo Farm Kaduna<br>         <b>Contact:</b> Dr. Laye (CEO/MD)<br>         <b>Phone:</b> 08037863645<br>         <b>Email:</b> hybridfeedshq@gmail.com<br>         </div>`)[0];
+                popup_b6881bb88529d358928aa7455b477459.setContent(html_c318bead0bdd94959aeabb32ee968cd2);
+            
+        
+
+        marker_5ed94e64216aa7bad5bc216d82301184.bindPopup(popup_b6881bb88529d358928aa7455b477459)
+        ;
+
+        
+    
+    
+            marker_5ed94e64216aa7bad5bc216d82301184.bindTooltip(
+                `<div>
+                     Hybrid Feeds
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8acb28509fb1e8f13ee266f80513d147 = L.marker(
+                [10.71846631, 7.568827263],
+                {
+}
+            ).addTo(feature_group_e909e6bd0d3521a53c1741bdc1fa84fe);
+        
+    
+            var icon_51a3c3eb666d89b572cad886b2ce45fb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8acb28509fb1e8f13ee266f80513d147.setIcon(icon_51a3c3eb666d89b572cad886b2ce45fb);
+        
+    
+        var popup_1cbf25c4d8af716547461634d96426b3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f7b6acfb92eb7428758739156424a681 = $(`<div id="html_f7b6acfb92eb7428758739156424a681" style="width: 100.0%; height: 100.0%;">         <b>Tomato Jos</b><br>         <b>Category:</b> Processors<br>         <b>Commodity:</b> Tomato<br>         <b>Address:</b> Kangimi Kaduna<br>         <b>Contact:</b> Mira  Mehta (CEO/President)<br>         <b>Phone:</b> 09027444544<br>         <b>Email:</b> info@tomatojos.net<br>         </div>`)[0];
+                popup_1cbf25c4d8af716547461634d96426b3.setContent(html_f7b6acfb92eb7428758739156424a681);
+            
+        
+
+        marker_8acb28509fb1e8f13ee266f80513d147.bindPopup(popup_1cbf25c4d8af716547461634d96426b3)
+        ;
+
+        
+    
+    
+            marker_8acb28509fb1e8f13ee266f80513d147.bindTooltip(
+                `<div>
+                     Tomato Jos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_e909e6bd0d3521a53c1741bdc1fa84fe.addTo(map_f6bf1560616846b5de623c4dc18abca3);
+        
+    
+            var mouse_position_d71fb4544b22c6dbd24a983de647fd84 = new L.Control.MousePosition(
+                {
+  "position": "topright",
+  "separator": " | ",
+  "emptyString": "No coordinates",
+  "lngFirst": false,
+  "numDigits": 5,
+  "prefix": "",
+}
+            );
+            mouse_position_d71fb4544b22c6dbd24a983de647fd84.options["latFormatter"] =
+                undefined;
+            mouse_position_d71fb4544b22c6dbd24a983de647fd84.options["lngFormatter"] =
+                undefined;
+            map_f6bf1560616846b5de623c4dc18abca3.addControl(mouse_position_d71fb4544b22c6dbd24a983de647fd84);
+        
+    
+            var layer_control_ab4da94b901916a91834611bddde6ead_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_8937d2e926082e97246a514025ff79cd,
+                },
+                overlays :  {
+                    "Stakeholders" : feature_group_e909e6bd0d3521a53c1741bdc1fa84fe,
+                },
+            };
+            let layer_control_ab4da94b901916a91834611bddde6ead = L.control.layers(
+                layer_control_ab4da94b901916a91834611bddde6ead_layers.base_layers,
+                layer_control_ab4da94b901916a91834611bddde6ead_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_f6bf1560616846b5de623c4dc18abca3);
+
+        
+</script>
+</html>
